@@ -1,43 +1,190 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SIVAT · Sistema de Vigilancia y Alerta Temprana</title>
-  <meta name="description" content="SIVAT: app móvil de reporte comunitario de posibles brotes en personas, animales y cultivos en Darién, Panamá. Soporte, privacidad y términos.">
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; max-width: 720px; margin: 0 auto; padding: 40px 20px 64px; color: #1f2937; line-height: 1.6; }
-    h1 { color: #1d4ed8; font-size: 30px; margin: 0 0 4px; }
-    .sub { color: #64748b; margin: 0 0 28px; }
-    .card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; }
-    .card h2 { font-size: 17px; margin: 0 0 6px; color: #1e3a8a; }
-    .card p { margin: 0; color: #475569; font-size: 15px; }
-    a { color: #1d4ed8; }
-    footer { margin-top: 32px; color: #94a3b8; font-size: 13px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIVAT · Sistema de Vigilancia y Alerta Temprana</title>
+<meta name="description" content="App de reporte comunitario para detectar a tiempo posibles brotes de enfermedades en personas, animales y cultivos en Darién, Panamá. Descárgala para Android.">
+<meta property="og:title" content="SIVAT · Sistema de Vigilancia y Alerta Temprana">
+<meta property="og:description" content="Reporta posibles brotes en personas, animales y cultivos en Darién. Proyecto de investigación de la Universidad Tecnológica de Panamá.">
+<meta property="og:type" content="website">
+<style>
+  :root{
+    --azul:#1d4ed8; --azul-claro:#3b82f6; --azul-oscuro:#1e3a8a;
+    --verde:#16a34a; --tinta:#0f172a; --texto:#475569; --suave:#64748b;
+    --borde:#e2e8f0; --fondo:#ffffff; --fondo-alt:#f8fafc;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+       color:var(--tinta);background:var(--fondo);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
+  a{color:var(--azul)}
+
+  header{background:linear-gradient(160deg,#2563eb 0%,#1d4ed8 55%,#15803d 160%);color:#fff;
+         padding:56px 0 64px;border-radius:0 0 32px 32px}
+  .marca{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+  .marca .escudo{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.18);
+       display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;letter-spacing:.5px}
+  .marca span{font-weight:600;letter-spacing:.3px}
+  header h1{font-size:34px;line-height:1.2;margin:0 0 12px;max-width:16ch}
+  header p.lead{font-size:17px;margin:0 0 28px;max-width:46ch;color:rgba(255,255,255,.92)}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+  .btn{display:inline-block;padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:600;font-size:16px}
+  .btn-primario{background:#fff;color:var(--azul)}
+  .btn-primario:hover{background:#eff6ff}
+  .btn-fantasma{border:1.5px solid rgba(255,255,255,.55);color:#fff}
+  .btn-fantasma:hover{background:rgba(255,255,255,.12)}
+  .nota-hero{margin:14px 0 0;font-size:13px;color:rgba(255,255,255,.8)}
+
+  section{padding:56px 0}
+  section.alt{background:var(--fondo-alt);border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
+  h2{font-size:24px;margin:0 0 8px;color:var(--azul-oscuro)}
+  .sub{color:var(--suave);margin:0 0 28px;max-width:56ch}
+
+  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+  .card{border:1px solid var(--borde);border-radius:14px;padding:18px 20px;background:#fff}
+  .card h3{margin:0 0 4px;font-size:16px;color:var(--tinta)}
+  .card p{margin:0;font-size:14px;color:var(--texto)}
+  .emoji{font-size:22px;display:block;margin-bottom:8px}
+
+  .capturas{display:flex;gap:18px;overflow-x:auto;padding:4px 0 8px;scroll-snap-type:x mandatory}
+  .capturas figure{margin:0;flex:0 0 210px;scroll-snap-align:center}
+  .capturas img{width:100%;height:auto;border-radius:16px;border:1px solid var(--borde);display:block}
+  .capturas figcaption{font-size:13px;color:var(--suave);margin-top:8px;text-align:center}
+
+  ol.pasos{counter-reset:p;list-style:none;padding:0;margin:0;display:grid;gap:12px}
+  ol.pasos li{counter-increment:p;position:relative;padding-left:44px;color:var(--texto);font-size:15px}
+  ol.pasos li::before{content:counter(p);position:absolute;left:0;top:-1px;width:28px;height:28px;
+       border-radius:50%;background:var(--azul);color:#fff;font-weight:700;font-size:14px;
+       display:flex;align-items:center;justify-content:center}
+  ol.pasos b{color:var(--tinta)}
+
+  ul.limpia{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+  ul.limpia li{padding-left:26px;position:relative;color:var(--texto);font-size:15px}
+  ul.limpia li::before{content:"✓";position:absolute;left:0;color:var(--verde);font-weight:700}
+
+  .aviso{border-left:3px solid var(--azul-claro);background:#eff6ff;border-radius:0 10px 10px 0;
+         padding:14px 18px;color:#1e40af;font-size:14px;margin-top:24px}
+
+  footer{background:var(--tinta);color:#cbd5e1;padding:40px 0 48px;font-size:14px}
+  footer a{color:#93c5fd;text-decoration:none}
+  footer a:hover{text-decoration:underline}
+  .enlaces{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 22px;padding:0;list-style:none}
+  footer p{margin:0 0 8px;color:#94a3b8}
+
+  @media (max-width:640px){
+    header{padding:40px 0 48px}
+    header h1{font-size:28px}
+    section{padding:44px 0}
+    .btn{width:100%;text-align:center}
+    .ctas{flex-direction:column;align-items:stretch}
+  }
+</style>
 </head>
 <body>
-  <h1>SIVAT</h1>
-  <p class="sub">Sistema de Vigilancia y Alerta Temprana · Darién, Panamá</p>
-  <p>SIVAT es una aplicación móvil para que residentes y reportantes comunitarios informen posibles brotes de enfermedades en personas, animales domésticos, fauna silvestre y cultivos. Es un proyecto de investigación de la Facultad de Ingeniería de Sistemas Computacionales de la Universidad Tecnológica de Panamá; los reportes los revisa el equipo del proyecto y no se envían a entidades de gobierno.</p>
 
-  <div class="card">
-    <h2>Soporte</h2>
-    <p>Escríbenos a <a href="mailto:soporte@sivat.org">soporte@sivat.org</a>. Respondemos en días hábiles. Para emergencias de salud llama al 911 o al MINSA (169).</p>
+<header>
+  <div class="wrap">
+    <div class="marca">
+      <div class="escudo">SV</div>
+      <span>SIVAT</span>
+    </div>
+    <h1>Un brote se detiene si alguien lo reporta a tiempo</h1>
+    <p class="lead">
+      SIVAT es una app para que la comunidad de Darién reporte casos sospechosos de enfermedad
+      en personas, animales y cultivos, con foto y ubicación exacta.
+    </p>
+    <div class="ctas">
+      <a class="btn btn-primario" href="https://github.com/martingom4/sivat-legal/releases/latest/download/sivat.apk">Descargar para Android</a>
+      <a class="btn btn-fantasma" href="android.html">Cómo se instala</a>
+    </div>
+    <p class="nota-hero">Android 8 o superior · ~120 MB · La versión de iPhone llega pronto al App Store</p>
   </div>
-  <div class="card">
-    <h2><a href="privacidad.html">Política de privacidad</a></h2>
-    <p>Qué datos recogemos, con qué fin y tus derechos conforme a la Ley 81 de 2019.</p>
-  </div>
-  <div class="card">
-    <h2><a href="terminos.html">Términos de uso</a></h2>
-    <p>Condiciones del servicio y uso aceptable.</p>
-  </div>
-  <div class="card">
-    <h2><a href="eliminar-cuenta.html">Eliminar tu cuenta</a></h2>
-    <p>Cómo borrar tu cuenta desde la app o por correo, y qué datos se conservan.</p>
-  </div>
+</header>
 
-  <footer>© 2026 SIVAT · Todos los derechos reservados</footer>
+<section>
+  <div class="wrap">
+    <h2>Qué puedes reportar</h2>
+    <p class="sub">Cuatro tipos de reporte, cada uno con su propio asistente paso a paso.</p>
+    <div class="grid">
+      <div class="card"><span class="emoji">🧍</span><h3>Personas</h3><p>Síntomas sospechosos en ti o en un familiar.</p></div>
+      <div class="card"><span class="emoji">🐄</span><h3>Animales domésticos</h3><p>Mascotas y ganado enfermos.</p></div>
+      <div class="card"><span class="emoji">🦇</span><h3>Fauna silvestre</h3><p>Animales silvestres con signos de enfermedad o muertes inusuales.</p></div>
+      <div class="card"><span class="emoji">🌾</span><h3>Cultivos</h3><p>Plagas y enfermedades en siembras.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Así se ve</h2>
+    <p class="sub">Tres pantallas del flujo real: elegir qué reportar, marcar los síntomas y ubicar el caso en el mapa.</p>
+    <div class="capturas">
+      <figure><img src="img/app-inicio.jpg" alt="Pantalla de inicio de SIVAT con los cuatro tipos de reporte" loading="lazy" width="420" height="913"><figcaption>Elige qué reportar</figcaption></figure>
+      <figure><img src="img/app-sintomas.jpg" alt="Asistente de reporte con la lista de síntomas" loading="lazy" width="420" height="913"><figcaption>Marca los síntomas</figcaption></figure>
+      <figure><img src="img/app-mapa.jpg" alt="Mapa de Darién con el punto del reporte marcado" loading="lazy" width="420" height="913"><figcaption>Ubica el caso</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Cómo funciona</h2>
+    <p class="sub">Un reporte toma menos de dos minutos.</p>
+    <ol class="pasos">
+      <li><b>Crea tu cuenta</b> con tu cédula o pasaporte y tu dirección.</li>
+      <li><b>Elige el tipo de reporte</b> y responde el asistente: síntomas, fecha y descripción.</li>
+      <li><b>Marca el punto en el mapa</b>, con tu ubicación actual o tocando el sitio exacto.</li>
+      <li><b>Adjunta una foto</b> como evidencia y envía. Puedes seguir tus reportes en "Mis reportes".</li>
+    </ol>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Tus datos</h2>
+    <p class="sub">Sin letra chica: esto es exactamente lo que pasa con lo que envías.</p>
+    <ul class="limpia">
+      <li>Los reportes los revisa <b>el equipo de investigación del proyecto</b>. No se envían al MINSA, a MiAmbiente ni a ninguna entidad de gobierno.</li>
+      <li>Sin anuncios y sin rastreo. Nada se vende ni se comparte con terceros.</li>
+      <li>La ubicación se usa <b>solo</b> mientras marcas el punto del reporte, nunca en segundo plano.</li>
+      <li>Puedes <b>eliminar tu cuenta</b> desde la app cuando quieras: se borran tus datos personales y los reportes quedan anónimos.</li>
+    </ul>
+    <div class="aviso">
+      SIVAT no es un servicio de emergencias, no emite diagnósticos y no sustituye la atención
+      médica o veterinaria. Ante una emergencia llama al <b>911</b>.
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Quién está detrás</h2>
+    <p class="sub" style="max-width:62ch">
+      SIVAT es un proyecto de investigación de la <b>Facultad de Ingeniería de Sistemas
+      Computacionales de la Universidad Tecnológica de Panamá</b>, con aprobación de su comité de
+      ética. El objetivo es estudiar si la vigilancia comunitaria permite detectar brotes antes
+      que los canales tradicionales en una región con acceso sanitario limitado como Darién.
+    </p>
+    <div class="ctas">
+      <a class="btn btn-primario" style="background:var(--azul);color:#fff" href="https://github.com/martingom4/sivat-legal/releases/latest/download/sivat.apk">Descargar para Android</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <ul class="enlaces">
+      <li><a href="android.html">Instalar en Android</a></li>
+      <li><a href="privacidad.html">Política de privacidad</a></li>
+      <li><a href="terminos.html">Términos de uso</a></li>
+      <li><a href="eliminar-cuenta.html">Eliminar mi cuenta</a></li>
+      <li><a href="mailto:soporte@sivat.org">soporte@sivat.org</a></li>
+    </ul>
+    <p>SIVAT · Sistema de Vigilancia y Alerta Temprana · Darién, Panamá</p>
+    <p>Proyecto de investigación de la Facultad de Ingeniería de Sistemas Computacionales, Universidad Tecnológica de Panamá.</p>
+  </div>
+</footer>
+
 </body>
 </html>
