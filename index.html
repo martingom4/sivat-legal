@@ -75,7 +75,7 @@
 
   /* mockup */
   .mockup{position:relative;justify-self:center}
-  .mockup .telefono{width:290px;padding:10px;border-radius:46px;display:block;
+  .mockup .telefono{width:320px;padding:10px;border-radius:46px;display:block;
         background:linear-gradient(160deg,#243247,#0a1224);
         box-shadow:0 40px 80px -30px rgba(0,0,0,.75), inset 0 0 0 1px rgba(255,255,255,.1)}
   .mockup .telefono img{display:block;width:100%;height:auto;border-radius:36px}
@@ -101,10 +101,10 @@
   .tarjeta:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,42,.05),0 16px 32px -18px rgba(15,23,42,.3)}
   .tarjeta h3{margin:0 0 6px;font-size:17px}
   .tarjeta p{margin:0;font-size:14.5px;color:var(--texto)}
-  .icono{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  .icono{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
          margin-bottom:16px;background:var(--azul-suave);color:var(--azul)}
   .icono.verde{background:#dcfce7;color:var(--verde)}
-  .icono svg{width:22px;height:22px;stroke-width:1.8}
+  .icono svg{width:26px;height:26px}
 
   /* pasos */
   .pasos{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));counter-reset:p}
@@ -118,7 +118,7 @@
 
   /* galería */
   .galeria{display:flex;gap:34px;justify-content:center;flex-wrap:wrap;align-items:flex-start}
-  .galeria figure{margin:0;width:270px}
+  .galeria figure{margin:0;width:320px}
   .galeria .marco{padding:9px;border-radius:40px;background:linear-gradient(160deg,#1e293b,#0b1220);
         box-shadow:var(--sombra-alta), inset 0 0 0 1px rgba(255,255,255,.08)}
   .galeria .marco img{display:block;width:100%;height:auto;border-radius:31px}
@@ -199,7 +199,7 @@
     </div>
     <div class="mockup">
       <div class="halo"></div>
-      <div class="telefono"><img src="img/app-inicio.jpg?v=2" alt="Pantalla principal de SIVAT con los cuatro tipos de reporte" width="640" height="1138"></div>
+      <div class="telefono"><img src="img/app-inicio.jpg?v=3" alt="Pantalla principal de SIVAT con los cuatro tipos de reporte" width="680" height="1209"></div>
     </div>
   </div>
 </div>
@@ -221,22 +221,22 @@
     </div>
     <div class="grid">
       <div class="tarjeta">
-        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21v-2a6.5 6.5 0 0113 0v2"/></svg></div>
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.4"/><path d="M5.5 20.5a6.5 6.5 0 0113 0"/></svg></div>
         <h3>Personas</h3>
         <p>Síntomas sospechosos en ti o en un familiar, con fecha de inicio.</p>
       </div>
       <div class="tarjeta">
-        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8c0-2 1.5-3.5 3.5-3.5S11 6 11 8"/><path d="M13 8c0-2 1.5-3.5 3.5-3.5S20 6 20 8"/><path d="M4 8v4a8 8 0 0016 0V8"/><path d="M9 15h6"/></svg></div>
+        <div class="icono"><svg viewBox="0 0 24 24" fill="currentColor"><ellipse cx="7" cy="9.2" rx="1.9" ry="2.5"/><ellipse cx="12" cy="7.4" rx="2" ry="2.7"/><ellipse cx="17" cy="9.2" rx="1.9" ry="2.5"/><path d="M12 12.2c2.6 0 5 2 5 4.3 0 1.9-1.5 3-3.3 3-.7 0-1.2-.2-1.7-.2s-1 .2-1.7.2C8.5 19.5 7 18.4 7 16.5c0-2.3 2.4-4.3 5-4.3z"/></svg></div>
         <h3>Animales domésticos</h3>
         <p>Mascotas y ganado enfermos o con mortandad inusual.</p>
       </div>
       <div class="tarjeta">
-        <div class="icono verde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7c3 0 5 2 5 5v5"/><path d="M21 7c-3 0-5 2-5 5v5"/><path d="M8 17h8"/><path d="M12 12V7"/></svg></div>
+        <div class="icono verde"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.6 6.1l-2.3.5a4.6 4.6 0 00-3.4-1.5c-2.2 0-4 1.6-4.4 3.7-2.3-.3-4.6-1.6-6.2-3.6-.3.6-.5 1.3-.5 2 0 1.4.7 2.7 1.7 3.4-.6 0-1.2-.2-1.7-.5 0 1.9 1.3 3.5 3.1 3.9-.5.1-1.1.2-1.7.1.5 1.6 1.9 2.7 3.6 2.7A9 9 0 013 18.6 12.6 12.6 0 009.8 20.6c7 0 10.9-6 10.9-11.2v-.5c.7-.5 1.4-1.2 1.9-2l-2 .6c.7-.4 1.3-1.1 1.6-1.9-.5.3-1.1.5-1.6.5z"/></svg></div>
         <h3>Fauna silvestre</h3>
         <p>Animales silvestres con signos de enfermedad o muertes anómalas.</p>
       </div>
       <div class="tarjeta">
-        <div class="icono verde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-7"/><path d="M12 14c0-4 3-7 8-7 0 4-3 7-8 7z"/><path d="M12 16c0-3-2.5-5.5-6.5-5.5 0 3 2.5 5.5 6.5 5.5z"/></svg></div>
+        <div class="icono verde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8.5"/><path d="M12 12.5C12 8.9 14.9 6 18.5 6c0 3.6-2.9 6.5-6.5 6.5z" fill="currentColor" stroke="none"/><path d="M12 15c0-2.8-2.2-5-5-5 0 2.8 2.2 5 5 5z" fill="currentColor" stroke="none"/></svg></div>
         <h3>Cultivos</h3>
         <p>Plagas y enfermedades en siembras, con evidencia fotográfica.</p>
       </div>
@@ -266,9 +266,9 @@
       <p>Tres pantallas del flujo real de la aplicación.</p>
     </div>
     <div class="galeria">
-      <figure><div class="marco"><img src="img/app-sintomas.jpg?v=2" alt="Selección de síntomas en el asistente de reporte" loading="lazy" width="560" height="996"></div><figcaption>Responde el asistente</figcaption></figure>
-      <figure><div class="marco"><img src="img/app-mapa.jpg?v=2" alt="Mapa de Darién con el punto del reporte marcado" loading="lazy" width="560" height="996"></div><figcaption>Ubica el caso en el mapa</figcaption></figure>
-      <figure><div class="marco"><img src="img/app-reportes.jpg?v=2" alt="Historial de reportes enviados" loading="lazy" width="560" height="996"></div><figcaption>Sigue tus reportes</figcaption></figure>
+      <figure><div class="marco"><img src="img/app-sintomas.jpg?v=3" alt="Selección de síntomas en el asistente de reporte" loading="lazy" width="680" height="1209"></div><figcaption>Responde el asistente</figcaption></figure>
+      <figure><div class="marco"><img src="img/app-mapa.jpg?v=3" alt="Mapa de Darién con el punto del reporte marcado" loading="lazy" width="680" height="1209"></div><figcaption>Ubica el caso en el mapa</figcaption></figure>
+      <figure><div class="marco"><img src="img/app-reportes.jpg?v=3" alt="Historial de reportes enviados" loading="lazy" width="680" height="1209"></div><figcaption>Sigue tus reportes</figcaption></figure>
     </div>
   </div>
 </section>
