@@ -4,152 +4,284 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SIVAT · Sistema de Vigilancia y Alerta Temprana</title>
-<meta name="description" content="App de reporte comunitario para detectar a tiempo posibles brotes de enfermedades en personas, animales y cultivos en Darién, Panamá. Descárgala para Android.">
+<meta name="description" content="App de reporte comunitario para detectar a tiempo posibles brotes de enfermedades en personas, animales y cultivos en Darién, Panamá. Descárgala gratis para Android.">
 <meta property="og:title" content="SIVAT · Sistema de Vigilancia y Alerta Temprana">
-<meta property="og:description" content="Reporta posibles brotes en personas, animales y cultivos en Darién. Proyecto de investigación de la Universidad Tecnológica de Panamá.">
+<meta property="og:description" content="Reporta posibles brotes en personas, animales y cultivos en Darién, con foto y ubicación exacta.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://sivat.org/img/logo-sivat.png">
+<meta name="theme-color" content="#0b1b3a">
 <link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/logo-sivat.png">
 <style>
   :root{
-    --azul:#1d4ed8; --azul-claro:#3b82f6; --azul-oscuro:#1e3a8a;
-    --verde:#16a34a; --tinta:#0f172a; --texto:#475569; --suave:#64748b;
-    --borde:#e2e8f0; --fondo:#ffffff; --fondo-alt:#f8fafc;
+    --marino:#0b1b3a; --azul:#1d4ed8; --azul-vivo:#2563eb; --azul-suave:#dbeafe;
+    --verde:#15803d; --verde-vivo:#16a34a;
+    --tinta:#0f172a; --texto:#475569; --tenue:#64748b; --linea:#e6ebf2;
+    --papel:#ffffff; --papel-alt:#f7f9fc;
+    --sombra:0 1px 2px rgba(15,23,42,.04), 0 8px 24px -12px rgba(15,23,42,.18);
+    --sombra-alta:0 24px 60px -24px rgba(11,27,58,.45);
+    --radio:16px;
   }
   *{box-sizing:border-box}
-  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-       color:var(--tinta);background:var(--fondo);line-height:1.6;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:960px;margin:0 auto;padding:0 20px}
-  a{color:var(--azul)}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+       color:var(--tinta);background:var(--papel);line-height:1.65;-webkit-font-smoothing:antialiased;
+       text-rendering:optimizeLegibility}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  a{color:var(--azul);text-decoration:none}
+  a:hover{text-decoration:underline}
+  img{max-width:100%}
+  h1,h2,h3{letter-spacing:-.02em}
+  :focus-visible{outline:3px solid #93c5fd;outline-offset:3px;border-radius:8px}
 
-  header{background:linear-gradient(160deg,#2563eb 0%,#1d4ed8 55%,#15803d 160%);color:#fff;
-         padding:56px 0 64px;border-radius:0 0 32px 32px}
-  .marca{display:flex;align-items:center;gap:12px;margin-bottom:28px}
-  .marca .escudo{width:44px;height:44px;border-radius:12px;display:block;
-       box-shadow:0 2px 10px rgba(15,23,42,.22)}
-  .marca span{font-weight:600;letter-spacing:.3px}
-  header h1{font-size:34px;line-height:1.2;margin:0 0 12px;max-width:16ch}
-  header p.lead{font-size:17px;margin:0 0 28px;max-width:46ch;color:rgba(255,255,255,.92)}
-  .ctas{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-  .btn{display:inline-block;padding:14px 24px;border-radius:12px;text-decoration:none;font-weight:600;font-size:16px}
-  .btn-primario{background:#fff;color:var(--azul)}
-  .btn-primario:hover{background:#eff6ff}
-  .btn-fantasma{border:1.5px solid rgba(255,255,255,.55);color:#fff}
-  .btn-fantasma:hover{background:rgba(255,255,255,.12)}
-  .nota-hero{margin:14px 0 0;font-size:13px;color:rgba(255,255,255,.8)}
+  /* ---------- Nav ---------- */
+  nav{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.86);
+      backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--linea)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:650;color:var(--tinta);letter-spacing:-.01em}
+  .logo:hover{text-decoration:none}
+  .logo img{width:32px;height:32px;border-radius:9px;box-shadow:0 1px 4px rgba(15,23,42,.2)}
+  .nav-links{display:flex;align-items:center;gap:26px}
+  .nav-links a{color:var(--texto);font-size:14.5px;font-weight:500}
+  .nav-links a:hover{color:var(--tinta);text-decoration:none}
 
-  section{padding:56px 0}
-  section.alt{background:var(--fondo-alt);border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
-  h2{font-size:24px;margin:0 0 8px;color:var(--azul-oscuro)}
-  .sub{color:var(--suave);margin:0 0 28px;max-width:56ch}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+       padding:13px 22px;border-radius:12px;font-weight:600;font-size:15.5px;
+       transition:transform .15s ease, box-shadow .15s ease, background .15s ease;white-space:nowrap}
+  .btn:hover{text-decoration:none;transform:translateY(-1px)}
+  .btn-azul{background:var(--azul);color:#fff;box-shadow:0 8px 20px -10px rgba(29,78,216,.8)}
+  .btn-azul:hover{background:#1e40af}
+  .btn-blanco{background:#fff;color:var(--azul)}
+  .btn-blanco:hover{background:#eef4ff}
+  .btn-linea{border:1.5px solid rgba(255,255,255,.5);color:#fff}
+  .btn-linea:hover{background:rgba(255,255,255,.12)}
+  .btn-sm{padding:10px 18px;font-size:14.5px}
 
-  .grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
-  .card{border:1px solid var(--borde);border-radius:14px;padding:18px 20px;background:#fff}
-  .card h3{margin:0 0 4px;font-size:16px;color:var(--tinta)}
-  .card p{margin:0;font-size:14px;color:var(--texto)}
-  .emoji{font-size:22px;display:block;margin-bottom:8px}
+  /* ---------- Hero ---------- */
+  .hero{position:relative;overflow:hidden;color:#fff;
+        background:radial-gradient(1200px 600px at 85% -10%, #1e40af 0%, transparent 60%),
+                   linear-gradient(165deg,#0b1b3a 0%,#12306b 45%,#14532d 140%)}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;
+              align-items:center;padding-top:76px;padding-bottom:84px}
+  .etiqueta{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;
+            letter-spacing:.08em;text-transform:uppercase;color:#a7c4fb;
+            background:rgba(148,187,255,.12);border:1px solid rgba(148,187,255,.25);
+            padding:6px 12px;border-radius:999px;margin-bottom:22px}
+  .hero h1{font-size:46px;line-height:1.1;margin:0 0 18px;max-width:15ch}
+  .hero p.lead{font-size:18px;line-height:1.6;margin:0 0 30px;max-width:44ch;color:#cfe0ff}
+  .hero .acciones{display:flex;flex-wrap:wrap;gap:12px}
+  .hero .pie{margin:18px 0 0;font-size:13.5px;color:#9fb6da}
 
-  .capturas{display:flex;gap:18px;overflow-x:auto;padding:4px 0 8px;scroll-snap-type:x mandatory}
-  .capturas figure{margin:0;flex:0 0 210px;scroll-snap-align:center;align-self:flex-start}
-  .capturas img{width:100%;height:auto;border-radius:16px;border:1px solid var(--borde);display:block}
-  .capturas figcaption{font-size:13px;color:var(--suave);margin-top:8px;text-align:center}
+  /* mockup */
+  .mockup{position:relative;justify-self:center}
+  .mockup .telefono{width:272px;border:9px solid #0a1224;border-radius:40px;overflow:hidden;
+        box-shadow:var(--sombra-alta);background:#0a1224;display:block}
+  .mockup .telefono img{display:block;width:100%;border-radius:31px}
+  .mockup .halo{position:absolute;inset:-40px -30px;border-radius:50%;
+        background:radial-gradient(closest-side, rgba(34,197,94,.28), transparent 70%);z-index:-1;filter:blur(10px)}
 
-  ol.pasos{counter-reset:p;list-style:none;padding:0;margin:0;display:grid;gap:12px}
-  ol.pasos li{counter-increment:p;position:relative;padding-left:44px;color:var(--texto);font-size:15px}
-  ol.pasos li::before{content:counter(p);position:absolute;left:0;top:-1px;width:28px;height:28px;
-       border-radius:50%;background:var(--azul);color:#fff;font-weight:700;font-size:14px;
+  /* ---------- Tira de apoyo ---------- */
+  .apoyo{background:var(--papel);border-bottom:1px solid var(--linea)}
+  .apoyo .wrap{padding:26px 24px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 34px;justify-content:center}
+  .apoyo .rotulo{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#94a3b8;font-weight:600}
+  .apoyo .nombre{font-size:14.5px;font-weight:600;color:#64748b;letter-spacing:.01em}
+
+  /* ---------- Secciones ---------- */
+  section{padding:84px 0}
+  section.alt{background:var(--papel-alt);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+  .titulo{max-width:62ch;margin:0 0 44px}
+  .titulo h2{font-size:30px;margin:0 0 10px;color:var(--marino)}
+  .titulo p{margin:0;color:var(--tenue);font-size:17px}
+
+  .grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(228px,1fr))}
+  .tarjeta{background:#fff;border:1px solid var(--linea);border-radius:var(--radio);padding:24px;
+           box-shadow:var(--sombra);transition:transform .18s ease, box-shadow .18s ease}
+  .tarjeta:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,23,42,.05),0 16px 32px -18px rgba(15,23,42,.3)}
+  .tarjeta h3{margin:0 0 6px;font-size:17px}
+  .tarjeta p{margin:0;font-size:14.5px;color:var(--texto)}
+  .icono{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+         margin-bottom:16px;background:var(--azul-suave);color:var(--azul)}
+  .icono.verde{background:#dcfce7;color:var(--verde)}
+  .icono svg{width:22px;height:22px;stroke-width:1.8}
+
+  /* pasos */
+  .pasos{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));counter-reset:p}
+  .paso{counter-increment:p;position:relative;padding-top:52px}
+  .paso::before{content:counter(p,decimal-leading-zero);position:absolute;top:0;left:0;
+       font-size:15px;font-weight:700;color:var(--azul);letter-spacing:.04em;
+       background:var(--azul-suave);width:38px;height:38px;border-radius:11px;
        display:flex;align-items:center;justify-content:center}
-  ol.pasos b{color:var(--tinta)}
+  .paso h3{margin:0 0 6px;font-size:16.5px}
+  .paso p{margin:0;color:var(--texto);font-size:14.5px}
 
-  ul.limpia{list-style:none;padding:0;margin:0;display:grid;gap:10px}
-  ul.limpia li{padding-left:26px;position:relative;color:var(--texto);font-size:15px}
-  ul.limpia li::before{content:"✓";position:absolute;left:0;color:var(--verde);font-weight:700}
+  /* galería */
+  .galeria{display:flex;gap:26px;justify-content:center;flex-wrap:wrap}
+  .galeria figure{margin:0;width:238px}
+  .galeria .marco{border:8px solid #0f172a;border-radius:34px;overflow:hidden;background:#0f172a;
+        box-shadow:var(--sombra-alta)}
+  .galeria .marco img{display:block;width:100%;border-radius:26px}
+  .galeria figcaption{margin-top:14px;text-align:center;font-size:14px;color:var(--tenue)}
 
-  .aviso{border-left:3px solid var(--azul-claro);background:#eff6ff;border-radius:0 10px 10px 0;
-         padding:14px 18px;color:#1e40af;font-size:14px;margin-top:24px}
+  /* privacidad */
+  .privacidad{display:grid;gap:14px}
+  .privacidad li{list-style:none;display:flex;gap:12px;align-items:flex-start;
+        color:var(--texto);font-size:15.5px}
+  .privacidad svg{flex:0 0 auto;width:20px;height:20px;margin-top:3px;color:var(--verde-vivo);stroke-width:2.2}
+  .privacidad b{color:var(--tinta)}
+  ul.privacidad{padding:0;margin:0}
+  .aviso{margin-top:30px;border-left:3px solid #fbbf24;background:#fffbeb;color:#92400e;
+         padding:16px 20px;border-radius:0 12px 12px 0;font-size:14.5px}
 
-  footer{background:var(--tinta);color:#cbd5e1;padding:40px 0 48px;font-size:14px}
-  footer a{color:#93c5fd;text-decoration:none}
-  footer a:hover{text-decoration:underline}
-  .enlaces{display:flex;flex-wrap:wrap;gap:8px 22px;margin:0 0 22px;padding:0;list-style:none}
-  footer p{margin:0 0 8px;color:#94a3b8}
+  /* cierre */
+  .cierre{background:linear-gradient(150deg,#12306b 0%,#0b1b3a 60%,#14532d 160%);color:#fff;text-align:center}
+  .cierre h2{font-size:30px;margin:0 0 12px;color:#fff}
+  .cierre p{margin:0 auto 28px;max-width:50ch;color:#cfe0ff;font-size:17px}
+  .cierre .acciones{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .cierre .pie{margin-top:18px;font-size:13.5px;color:#9fb6da}
 
-  @media (max-width:640px){
-    header{padding:40px 0 48px}
-    header h1{font-size:28px}
-    section{padding:44px 0}
-    .btn{width:100%;text-align:center}
-    .ctas{flex-direction:column;align-items:stretch}
+  /* footer */
+  footer{background:var(--marino);color:#94a3b8;padding:52px 0 56px;font-size:14.5px}
+  footer .top{display:flex;flex-wrap:wrap;gap:28px;justify-content:space-between;align-items:flex-start;
+        padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.1)}
+  footer .logo{color:#fff}
+  footer nav{position:static;background:none;border:none;backdrop-filter:none}
+  .enlaces{display:flex;flex-wrap:wrap;gap:10px 26px;list-style:none;padding:0;margin:0}
+  .enlaces a{color:#c7d5e8}
+  .enlaces a:hover{color:#fff}
+  footer .credito{margin:24px 0 0;color:#7f92ab;font-size:13.5px;line-height:1.7;max-width:70ch}
+  footer .credito b{color:#c7d5e8;font-weight:600}
+
+  @media (max-width:860px){
+    .hero .wrap{grid-template-columns:1fr;gap:44px;padding-top:56px;padding-bottom:64px}
+    .hero h1{font-size:36px}
+    .mockup{order:-1}
+    .mockup .telefono{width:228px}
+    .nav-links a:not(.btn){display:none}
+    section{padding:64px 0}
+    .titulo h2{font-size:26px}
+  }
+  @media (max-width:520px){
+    .hero .acciones .btn, .cierre .acciones .btn{width:100%}
   }
 </style>
 </head>
 <body>
 
-<header>
+<nav>
   <div class="wrap">
-    <div class="marca">
-      <img class="escudo" src="img/logo-sivat.png" alt="Logo de SIVAT" width="180" height="180">
-      <span>SIVAT</span>
+    <a class="logo" href="#"><img src="img/logo-sivat.png" alt="" width="180" height="180">SIVAT</a>
+    <div class="nav-links">
+      <a href="#reportar">Qué reportar</a>
+      <a href="#como">Cómo funciona</a>
+      <a href="#datos">Privacidad</a>
+      <a class="btn btn-azul btn-sm" href="https://github.com/martingom4/sivat-legal/releases/latest/download/sivat.apk">Descargar</a>
     </div>
-    <h1>Un brote se detiene si alguien lo reporta a tiempo</h1>
-    <p class="lead">
-      SIVAT es una app para que la comunidad de Darién reporte casos sospechosos de enfermedad
-      en personas, animales y cultivos, con foto y ubicación exacta.
-    </p>
-    <div class="ctas">
-      <a class="btn btn-primario" href="https://github.com/martingom4/sivat-legal/releases/latest/download/sivat.apk">Descargar para Android</a>
-      <a class="btn btn-fantasma" href="android.html">Cómo se instala</a>
-    </div>
-    <p class="nota-hero">Android 8 o superior · ~120 MB · La versión de iPhone llega pronto al App Store</p>
   </div>
-</header>
+</nav>
 
-<section>
+<div class="hero">
   <div class="wrap">
-    <h2>Qué puedes reportar</h2>
-    <p class="sub">Cuatro tipos de reporte, cada uno con su propio asistente paso a paso.</p>
+    <div>
+      <span class="etiqueta">Darién · Panamá</span>
+      <h1>Un brote se detiene si alguien lo reporta a tiempo</h1>
+      <p class="lead">
+        SIVAT pone la vigilancia epidemiológica en manos de la comunidad: reporta casos
+        sospechosos en personas, animales y cultivos, con foto y ubicación exacta, en menos
+        de dos minutos.
+      </p>
+      <div class="acciones">
+        <a class="btn btn-blanco" href="https://github.com/martingom4/sivat-legal/releases/latest/download/sivat.apk">Descargar para Android</a>
+        <a class="btn btn-linea" href="android.html">Cómo se instala</a>
+      </div>
+      <p class="pie">Gratis · Android 8 o superior · ~120 MB · Pronto en App Store</p>
+    </div>
+    <div class="mockup">
+      <div class="halo"></div>
+      <div class="telefono"><img src="img/app-inicio.jpg" alt="Pantalla principal de SIVAT con los cuatro tipos de reporte" width="420" height="913"></div>
+    </div>
+  </div>
+</div>
+
+<div class="apoyo">
+  <div class="wrap">
+    <span class="rotulo">Con el apoyo de</span>
+    <span class="nombre">Universidad Tecnológica de Panamá</span>
+    <span class="nombre">SENACYT</span>
+    <span class="nombre">Centro Carson</span>
+  </div>
+</div>
+
+<section id="reportar">
+  <div class="wrap">
+    <div class="titulo">
+      <h2>Una sola app para las cuatro señales</h2>
+      <p>La mayoría de los brotes se anuncian antes en los animales o en el campo que en el hospital. SIVAT recoge las cuatro señales en el mismo sitio.</p>
+    </div>
     <div class="grid">
-      <div class="card"><span class="emoji">🧍</span><h3>Personas</h3><p>Síntomas sospechosos en ti o en un familiar.</p></div>
-      <div class="card"><span class="emoji">🐄</span><h3>Animales domésticos</h3><p>Mascotas y ganado enfermos.</p></div>
-      <div class="card"><span class="emoji">🦇</span><h3>Fauna silvestre</h3><p>Animales silvestres con signos de enfermedad o muertes inusuales.</p></div>
-      <div class="card"><span class="emoji">🌾</span><h3>Cultivos</h3><p>Plagas y enfermedades en siembras.</p></div>
+      <div class="tarjeta">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M5.5 21v-2a6.5 6.5 0 0113 0v2"/></svg></div>
+        <h3>Personas</h3>
+        <p>Síntomas sospechosos en ti o en un familiar, con fecha de inicio.</p>
+      </div>
+      <div class="tarjeta">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8c0-2 1.5-3.5 3.5-3.5S11 6 11 8"/><path d="M13 8c0-2 1.5-3.5 3.5-3.5S20 6 20 8"/><path d="M4 8v4a8 8 0 0016 0V8"/><path d="M9 15h6"/></svg></div>
+        <h3>Animales domésticos</h3>
+        <p>Mascotas y ganado enfermos o con mortandad inusual.</p>
+      </div>
+      <div class="tarjeta">
+        <div class="icono verde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7c3 0 5 2 5 5v5"/><path d="M21 7c-3 0-5 2-5 5v5"/><path d="M8 17h8"/><path d="M12 12V7"/></svg></div>
+        <h3>Fauna silvestre</h3>
+        <p>Animales silvestres con signos de enfermedad o muertes anómalas.</p>
+      </div>
+      <div class="tarjeta">
+        <div class="icono verde"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-7"/><path d="M12 14c0-4 3-7 8-7 0 4-3 7-8 7z"/><path d="M12 16c0-3-2.5-5.5-6.5-5.5 0 3 2.5 5.5 6.5 5.5z"/></svg></div>
+        <h3>Cultivos</h3>
+        <p>Plagas y enfermedades en siembras, con evidencia fotográfica.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="alt">
+<section class="alt" id="como">
   <div class="wrap">
-    <h2>Así se ve</h2>
-    <p class="sub">Tres pantallas del flujo real: elegir qué reportar, marcar los síntomas y ubicar el caso en el mapa.</p>
-    <div class="capturas">
-      <figure><img src="img/app-inicio.jpg" alt="Pantalla de inicio de SIVAT con los cuatro tipos de reporte" loading="lazy" width="420" height="913"><figcaption>Elige qué reportar</figcaption></figure>
-      <figure><img src="img/app-sintomas.jpg" alt="Asistente de reporte con la lista de síntomas" loading="lazy" width="420" height="913"><figcaption>Marca los síntomas</figcaption></figure>
-      <figure><img src="img/app-mapa.jpg" alt="Mapa de Darién con el punto del reporte marcado" loading="lazy" width="420" height="643"><figcaption>Ubica el caso</figcaption></figure>
+    <div class="titulo">
+      <h2>Cuatro pasos, dos minutos</h2>
+      <p>El asistente guía el reporte de principio a fin. No hace falta saber de epidemiología.</p>
+    </div>
+    <div class="pasos">
+      <div class="paso"><h3>Crea tu cuenta</h3><p>Con tu cédula o pasaporte y tu dirección. Una sola vez.</p></div>
+      <div class="paso"><h3>Elige qué reportar</h3><p>Persona, animal doméstico, fauna silvestre o cultivo.</p></div>
+      <div class="paso"><h3>Marca el punto</h3><p>Con tu ubicación actual o tocando el sitio exacto en el mapa.</p></div>
+      <div class="paso"><h3>Adjunta y envía</h3><p>Una foto como evidencia. Sigue el estado en "Mis reportes".</p></div>
     </div>
   </div>
 </section>
 
 <section>
   <div class="wrap">
-    <h2>Cómo funciona</h2>
-    <p class="sub">Un reporte toma menos de dos minutos.</p>
-    <ol class="pasos">
-      <li><b>Crea tu cuenta</b> con tu cédula o pasaporte y tu dirección.</li>
-      <li><b>Elige el tipo de reporte</b> y responde el asistente: síntomas, fecha y descripción.</li>
-      <li><b>Marca el punto en el mapa</b>, con tu ubicación actual o tocando el sitio exacto.</li>
-      <li><b>Adjunta una foto</b> como evidencia y envía. Puedes seguir tus reportes en "Mis reportes".</li>
-    </ol>
+    <div class="titulo">
+      <h2>Así se ve</h2>
+      <p>Tres pantallas del flujo real de la aplicación.</p>
+    </div>
+    <div class="galeria">
+      <figure><div class="marco"><img src="img/app-inicio.jpg" alt="Pantalla de inicio con los cuatro tipos de reporte" loading="lazy" width="420" height="913"></div><figcaption>Elige qué reportar</figcaption></figure>
+      <figure><div class="marco"><img src="img/app-sintomas.jpg" alt="Selección de síntomas en el asistente" loading="lazy" width="420" height="913"></div><figcaption>Marca los síntomas</figcaption></figure>
+      <figure><div class="marco"><img src="img/app-mapa.jpg" alt="Mapa de Darién con el punto del reporte" loading="lazy" width="420" height="643"></div><figcaption>Ubica el caso</figcaption></figure>
+    </div>
   </div>
 </section>
 
-<section class="alt">
+<section class="alt" id="datos">
   <div class="wrap">
-    <h2>Tus datos</h2>
-    <p class="sub">Sin letra chica: esto es exactamente lo que pasa con lo que envías.</p>
-    <ul class="limpia">
-      <li>Los reportes los revisa <b>el equipo de investigación del proyecto</b>. No se envían al MINSA, a MiAmbiente ni a ninguna entidad de gobierno.</li>
-      <li>Sin anuncios y sin rastreo. Nada se vende ni se comparte con terceros.</li>
-      <li>La ubicación se usa <b>solo</b> mientras marcas el punto del reporte, nunca en segundo plano.</li>
-      <li>Puedes <b>eliminar tu cuenta</b> desde la app cuando quieras: se borran tus datos personales y los reportes quedan anónimos.</li>
+    <div class="titulo">
+      <h2>Qué pasa con lo que envías</h2>
+      <p>Sin letra chica ni promesas que no podamos cumplir.</p>
+    </div>
+    <ul class="privacidad">
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>Los reportes los revisa <b>el equipo de investigación del proyecto</b>. No se envían a ninguna entidad de gobierno.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span><b>Sin anuncios y sin rastreo.</b> Nada se vende ni se comparte con terceros.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>La ubicación se usa <b>solo</b> mientras marcas el punto del reporte, nunca en segundo plano.</span></li>
+      <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg><span>Puedes <b>eliminar tu cuenta</b> desde la app cuando quieras: tus datos personales se borran y los reportes quedan anónimos.</span></li>
     </ul>
     <div class="aviso">
       SIVAT no es un servicio de emergencias, no emite diagnósticos y no sustituye la atención
@@ -158,53 +290,37 @@
   </div>
 </section>
 
-<section>
+<section class="cierre">
   <div class="wrap">
-    <h2>Quién está detrás</h2>
-    <p class="sub" style="max-width:62ch">
-      SIVAT es un proyecto de investigación de la <b>Facultad de Ingeniería de Sistemas
-      Computacionales de la Universidad Tecnológica de Panamá</b>, con aprobación de su comité de
-      ética. El objetivo es estudiar si la vigilancia comunitaria permite detectar brotes antes
-      que los canales tradicionales en una región con acceso sanitario limitado como Darién.
-    </p>
-    <div class="ctas">
-      <a class="btn btn-primario" style="background:var(--azul);color:#fff" href="https://github.com/martingom4/sivat-legal/releases/latest/download/sivat.apk">Descargar para Android</a>
+    <h2>Descárgala y reporta</h2>
+    <p>Cuanto antes se detecta un brote, menos gente se enferma. Empieza hoy desde tu teléfono.</p>
+    <div class="acciones">
+      <a class="btn btn-blanco" href="https://github.com/martingom4/sivat-legal/releases/latest/download/sivat.apk">Descargar para Android</a>
+      <a class="btn btn-linea" href="android.html">Ver instrucciones</a>
     </div>
-  </div>
-</section>
-
-<section class="alt">
-  <div class="wrap">
-    <h2>Créditos</h2>
-    <p class="sub">SIVAT existe gracias a estas personas e instituciones.</p>
-    <div class="grid">
-      <div class="card">
-        <h3>Desarrollo</h3>
-        <p><b>Martín Gómez</b><br>Ingeniería de Software<br>Facultad de Ingeniería de Sistemas Computacionales, Universidad Tecnológica de Panamá</p>
-      </div>
-      <div class="card">
-        <h3>Financiamiento</h3>
-        <p>Secretaría Nacional de Ciencia, Tecnología e Innovación <b>(SENACYT)</b>, que financió el desarrollo del proyecto.</p>
-      </div>
-      <div class="card">
-        <h3>Colaboración</h3>
-        <p><b>Carson Centre</b><br><a href="https://instagram.com/carsoncentre/" rel="noopener">@carsoncentre</a></p>
-      </div>
-    </div>
+    <p class="pie">La versión para iPhone llega pronto al App Store.</p>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <ul class="enlaces">
-      <li><a href="android.html">Instalar en Android</a></li>
-      <li><a href="privacidad.html">Política de privacidad</a></li>
-      <li><a href="terminos.html">Términos de uso</a></li>
-      <li><a href="eliminar-cuenta.html">Eliminar mi cuenta</a></li>
-      <li><a href="mailto:soporte@sivat.org">soporte@sivat.org</a></li>
-    </ul>
-    <p>SIVAT · Sistema de Vigilancia y Alerta Temprana · Darién, Panamá</p>
-    <p>Proyecto de investigación de la Facultad de Ingeniería de Sistemas Computacionales, Universidad Tecnológica de Panamá.</p>
+    <div class="top">
+      <a class="logo" href="#"><img src="img/logo-sivat.png" alt="" width="180" height="180">SIVAT</a>
+      <ul class="enlaces">
+        <li><a href="android.html">Instalar en Android</a></li>
+        <li><a href="privacidad.html">Privacidad</a></li>
+        <li><a href="terminos.html">Términos</a></li>
+        <li><a href="eliminar-cuenta.html">Eliminar mi cuenta</a></li>
+        <li><a href="mailto:soporte@sivat.org">soporte@sivat.org</a></li>
+      </ul>
+    </div>
+    <p class="credito">
+      <b>SIVAT · Sistema de Vigilancia y Alerta Temprana</b> — Darién, Panamá.<br>
+      Proyecto de investigación de la <b>Universidad Tecnológica de Panamá</b>, Facultad de Ingeniería
+      de Sistemas Computacionales, con aprobación de su comité de ética.
+      Financiado por la <b>SENACYT</b>. En colaboración con el <b><a href="https://instagram.com/carsoncentre/" rel="noopener">Centro Carson</a></b>.
+      Desarrollado por <b>Martín Gómez</b>.
+    </p>
   </div>
 </footer>
 
