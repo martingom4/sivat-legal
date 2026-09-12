@@ -8,6 +8,7 @@
 <meta property="og:title" content="SIVAT · Sistema de Vigilancia y Alerta Temprana">
 <meta property="og:description" content="Reporta posibles brotes en personas, animales y cultivos en Darién. Proyecto de investigación de la Universidad Tecnológica de Panamá.">
 <meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="img/favicon.png">
 <style>
   :root{
     --azul:#1d4ed8; --azul-claro:#3b82f6; --azul-oscuro:#1e3a8a;
@@ -23,8 +24,8 @@
   header{background:linear-gradient(160deg,#2563eb 0%,#1d4ed8 55%,#15803d 160%);color:#fff;
          padding:56px 0 64px;border-radius:0 0 32px 32px}
   .marca{display:flex;align-items:center;gap:12px;margin-bottom:28px}
-  .marca .escudo{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.18);
-       display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;letter-spacing:.5px}
+  .marca .escudo{width:44px;height:44px;border-radius:12px;display:block;
+       box-shadow:0 2px 10px rgba(15,23,42,.22)}
   .marca span{font-weight:600;letter-spacing:.3px}
   header h1{font-size:34px;line-height:1.2;margin:0 0 12px;max-width:16ch}
   header p.lead{font-size:17px;margin:0 0 28px;max-width:46ch;color:rgba(255,255,255,.92)}
@@ -86,7 +87,7 @@
 <header>
   <div class="wrap">
     <div class="marca">
-      <div class="escudo">SV</div>
+      <img class="escudo" src="img/logo-sivat.png" alt="Logo de SIVAT" width="180" height="180">
       <span>SIVAT</span>
     </div>
     <h1>Un brote se detiene si alguien lo reporta a tiempo</h1>
@@ -168,6 +169,27 @@
     </p>
     <div class="ctas">
       <a class="btn btn-primario" style="background:var(--azul);color:#fff" href="https://github.com/martingom4/sivat-legal/releases/latest/download/sivat.apk">Descargar para Android</a>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="wrap">
+    <h2>Créditos</h2>
+    <p class="sub">SIVAT existe gracias a estas personas e instituciones.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Desarrollo</h3>
+        <p><b>Martín Gómez</b><br>Ingeniería de Software<br>Facultad de Ingeniería de Sistemas Computacionales, Universidad Tecnológica de Panamá</p>
+      </div>
+      <div class="card">
+        <h3>Financiamiento</h3>
+        <p>Secretaría Nacional de Ciencia, Tecnología e Innovación <b>(SENACYT)</b>, que financió el desarrollo del proyecto.</p>
+      </div>
+      <div class="card">
+        <h3>Colaboración</h3>
+        <p><b>Carson Centre</b><br><a href="https://instagram.com/carsoncentre/" rel="noopener">@carsoncentre</a></p>
+      </div>
     </div>
   </div>
 </section>
